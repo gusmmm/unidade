@@ -34,3 +34,24 @@ CREATE TABLE IF NOT EXISTS internamentos_unidade (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Create table proveniencia_destino
+CREATE TABLE IF NOT EXISTS proveniencia_destino (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    tipo VARCHAR(255) NOT NULL,
+    localidade VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Alter internamentos_unidade to reference proveniencia_destino
+ALTER TABLE internamentos_unidade
+    ADD COLUMN proveniencia_id INTEGER REFERENCES proveniencia_destino(id),
+    ADD COLUMN destino_id INTEGER REFERENCES proveniencia_destino(id);  
+
+-- Alter internamentos_unidade to drop the old proveniencia and destino columns
+ALTER TABLE internamentos_unidade
+    DROP COLUMN proveniencia,
+    DROP COLUMN destino;
+
