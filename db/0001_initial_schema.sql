@@ -14,3 +14,23 @@ CREATE TABLE IF NOT EXISTS doentes (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Create a type for enum of genero
+CREATE TYPE genero_type AS ENUM ('M', 'F', 'Outro');
+-- Alter the doentes table to use the genero_type
+ALTER TABLE doentes
+    ALTER COLUMN genero TYPE genero_type USING genero::genero_type;
+
+-- Create table for internamentos_unidade
+CREATE TABLE IF NOT EXISTS internamentos_unidade (
+    id SERIAL PRIMARY KEY,
+    numero_ano INTEGER NOT NULL,
+    doente_id INTEGER REFERENCES doentes(id),
+    data_entrada TIMESTAMP NOT NULL,
+    proveniencia VARCHAR(255),
+    data_alta TIMESTAMP,
+    destino VARCHAR(255),
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
