@@ -55,3 +55,49 @@ ALTER TABLE internamentos_unidade
     DROP COLUMN proveniencia,
     DROP COLUMN destino;
 
+
+-- Table mecanismos_queimadura
+CREATE TABLE IF NOT EXISTS mecanismos_queimadura (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table etiologia_queimadura
+CREATE TABLE IF NOT EXISTS etiologias_queimadura (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table contexto_queimadura
+CREATE TABLE IF NOT EXISTS contextos_queimadura (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table evento_trauma_queimadura
+CREATE TABLE IF NOT EXISTS evento_trauma_queimadura (
+    id SERIAL PRIMARY KEY,
+    internamento_id INTEGER REFERENCES internamentos_unidade(id),
+    data_evento TIMESTAMP NOT NULL,
+    ASCQ FLOAT,
+    lesao_inalatoria INTEGER,
+    mecanismo_queimadura INTEGER REFERENCES mecanismos_queimadura(id),
+    etiologia_queimadura INTEGER REFERENCES etiologias_queimadura(id),
+    contexto_queimadura INTEGER REFERENCES contextos_queimadura(id),
+    suicidio_tentativa BOOLEAN,
+    violencia_vitima BOOLEAN,
+    florestal_incendio BOOLEAN,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
