@@ -101,3 +101,196 @@ CREATE TABLE IF NOT EXISTS evento_trauma_queimadura (
     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Table medicacao
+CREATE TABLE IF NOT EXISTS medicacao (
+    id SERIAL PRIMARY KEY,
+    codigo_ATC VARCHAR(255) NOT NULL UNIQUE,
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    categoria VARCHAR(255),
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table procedimentos_cirurgicos
+CREATE TABLE IF NOT EXISTS procedimentos_cirurgicos (
+    id SERIAL PRIMARY KEY,
+    codigo_SNOMED VARCHAR(255) NOT NULL UNIQUE,
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table patologias
+CREATE TABLE IF NOT EXISTS patologias (
+    id SERIAL PRIMARY KEY,
+    codigo_SNOMED VARCHAR(255) NOT NULL UNIQUE,
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    nome_ingles VARCHAR(255),
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table procedimentos_medicos
+CREATE TABLE IF NOT EXISTS procedimentos_medicos (
+    id SERIAL PRIMARY KEY,
+    codigo_SNOMED VARCHAR(255) NOT NULL UNIQUE,
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table problemas_clinicos
+CREATE TABLE IF NOT EXISTS problemas_clinicos (
+    id SERIAL PRIMARY KEY,
+    codigo_SNOMED VARCHAR(255) NOT NULL UNIQUE,
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    nome_ingles VARCHAR(255),
+    categoria VARCHAR(255),
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table microbiologia_agentes
+CREATE TABLE IF NOT EXISTS microbiologia_agentes (
+    id SERIAL PRIMARY KEY,
+    codigo_SNOMED VARCHAR(255) NOT NULL UNIQUE,
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    categoria VARCHAR(255),
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table microbiologia_colheitas
+CREATE TABLE IF NOT EXISTS microbiologia_colheitas (
+    id SERIAL PRIMARY KEY,
+    codigo_LOINC VARCHAR(255) NOT NULL UNIQUE,
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    nome_ingles VARCHAR(255),
+    categoria VARCHAR(255),
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table microbiologia_resultados
+CREATE TABLE IF NOT EXISTS microbiologia_resultados (
+    id SERIAL PRIMARY KEY,
+    internamento_id INTEGER REFERENCES internamentos_unidade(id),
+    colheita_id INTEGER REFERENCES microbiologia_colheitas(id),
+    agente_id INTEGER REFERENCES microbiologia_agentes(id),
+    resultado VARCHAR(255),
+    data_colheita TIMESTAMP,
+    data_resultado TIMESTAMP,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table doentes_medicacao
+CREATE TABLE IF NOT EXISTS doentes_medicacao (
+    id SERIAL PRIMARY KEY,
+    doente_id INTEGER REFERENCES doentes(id),
+    medicacao_id INTEGER REFERENCES medicacao(id),
+    data_inicio TIMESTAMP,
+    data_fim TIMESTAMP,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table doentes_antecedentes
+CREATE TABLE IF NOT EXISTS doentes_antecedentes (
+    id SERIAL PRIMARY KEY,
+    doente_id INTEGER REFERENCES doentes(id),
+    patologia_id INTEGER REFERENCES patologias(id),
+    data_diagnostico TIMESTAMP,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table internamentos_procedimentos_cirurgicos
+CREATE TABLE IF NOT EXISTS internamentos_procedimentos_cirurgicos (
+    id SERIAL PRIMARY KEY,
+    internamento_id INTEGER REFERENCES internamentos_unidade(id),
+    procedimento_cirurgico_id INTEGER REFERENCES procedimentos_cirurgicos(id),
+    antes_da_admissao BOOLEAN,
+    data_procedimento TIMESTAMP,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table internamentos_procedimentos_medicos
+CREATE TABLE IF NOT EXISTS internamentos_procedimentos_medicos (
+    id SERIAL PRIMARY KEY,
+    internamento_id INTEGER REFERENCES internamentos_unidade(id),
+    procedimento_medico_id INTEGER REFERENCES procedimentos_medicos(id),
+    antes_da_admissao BOOLEAN,
+    data_procedimento TIMESTAMP,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table internamentos_problemas_clinicos
+CREATE TABLE IF NOT EXISTS internamentos_problemas_clinicos (
+    id SERIAL PRIMARY KEY,
+    internamento_id INTEGER REFERENCES internamentos_unidade(id),
+    problema_clinico_id INTEGER REFERENCES problemas_clinicos(id),
+    antes_da_admissao BOOLEAN,
+    data_diagnostico TIMESTAMP,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table internamentos_infeccoes
+CREATE TABLE IF NOT EXISTS internamentos_infeccoes (
+    id SERIAL PRIMARY KEY,
+    internamento_id INTEGER REFERENCES internamentos_unidade(id),
+    infeccao INTEGER REFERENCES problemas_clinicos(id),
+    agente_infeccao_id INTEGER REFERENCES microbiologia_agentes(id),
+    data_diagnostico TIMESTAMP,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table profundidade_queimadura
+CREATE TABLE IF NOT EXISTS profundidade_queimadura (
+    id SERIAL PRIMARY KEY,
+    codigo_SNOMED VARCHAR(255) NOT NULL UNIQUE,
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table localizacao_anatomica
+CREATE TABLE IF NOT EXISTS localizacao_anatomica (
+    id SERIAL PRIMARY KEY,
+    codigo_SNOMED VARCHAR(255) NOT NULL UNIQUE,
+    nome VARCHAR(255) NOT NULL UNIQUE,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table queimaduras
+CREATE TABLE IF NOT EXISTS queimaduras (
+    id SERIAL PRIMARY KEY,
+    internamento_id INTEGER REFERENCES internamentos_unidade(id),
+    profundidade_id INTEGER REFERENCES profundidade_queimadura(id),
+    localizacao_id INTEGER REFERENCES localizacao_anatomica(id),
+    percentagem_corpo_queimado FLOAT,
+    observacoes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
