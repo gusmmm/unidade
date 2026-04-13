@@ -2,7 +2,7 @@
 ## Stack
 
 - **Dependencies**: `uv` for package management
-- **Database**: PostgreSQL in a Docker container - check docker-compose.yml
+- **Database**: PostgreSQL in a Docker container - check the file: docker-compose.yml
 - **Backend**: FastAPI
 - **Frontend**: Streamlit (multipage)
 

@@ -1,0 +1,63 @@
+:root {
+  --bg: #0f1218;
+  --surface: #171b23;
+  --text: #eef2ff;
+  --muted: #9aa4bd;
+  --accent: #3f83ff;
+  --accent-2: #2b62c7;
+  --border: #2a3242;
+}
+
+.stApp {
+  background: radial-gradient(circle at 10% 0%, #1a2130 0%, #0f1218 65%);
+  color: var(--text);
+}
+
+[data-testid="stHeader"] {
+  background: transparent;
+}
+
+[data-testid="stSidebar"] {
+  background: #121722;
+  border-right: 1px solid var(--border);
+}
+
+.block-container {
+  padding-top: 1.2rem;
+  max-width: 1100px;
+}
+
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+}
+
+.stButton > button,
+.stFormSubmitButton > button {
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #ffffff;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.stButton > button:hover,
+.stFormSubmitButton > button:hover {
+  border-color: var(--accent-2);
+  background: var(--accent-2);
+}
+
+.stTextInput > div > div > input,
+.stTextArea textarea,
+.stDateInput input,
+.stNumberInput input,
+[data-baseweb="select"] > div {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+[data-testid="stDataFrame"] {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}

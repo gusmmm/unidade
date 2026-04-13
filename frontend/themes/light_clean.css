@@ -1,0 +1,114 @@
+:root {
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --text: #0f1728;
+  --muted: #2f3a4f;
+  --accent: #1767ff;
+  --accent-2: #0e4ec9;
+  --border: #cfd7e6;
+  --danger: #e04747;
+}
+
+.stApp {
+  background: radial-gradient(circle at 15% 0%, #ffffff 0%, #f6f7fb 60%);
+  color: var(--text);
+}
+
+[data-testid="stHeader"] {
+  background: transparent;
+}
+
+[data-testid="stSidebar"] {
+  background: linear-gradient(180deg, #f1f4fb 0%, #eef2fa 100%);
+  border-right: 1px solid var(--border);
+}
+
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+}
+
+.block-container {
+  padding-top: 1.2rem;
+  max-width: 1100px;
+}
+
+.stButton > button,
+.stDownloadButton > button,
+.stFormSubmitButton > button {
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: white;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.stButton > button:hover,
+.stDownloadButton > button:hover,
+.stFormSubmitButton > button:hover {
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+}
+
+.stTextInput > div > div > input,
+.stTextArea textarea,
+.stDateInput input,
+.stNumberInput input {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+p,
+label,
+[data-testid="stWidgetLabel"] p,
+[data-testid="stMarkdownContainer"] p {
+  color: var(--text);
+}
+
+[data-testid="stAlert"] {
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+[data-testid="stAlert"] a {
+  color: var(--accent-2);
+  font-weight: 600;
+}
+
+[data-baseweb="select"] > div {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+[data-testid="stDataFrame"] {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+[data-testid="stDataFrame"] > div {
+  background: var(--surface);
+}
+
+[data-testid="stDataFrame"] table {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+}
+
+[data-testid="stDataFrame"] th {
+  background: #ecf0fb !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+
+[data-testid="stDataFrame"] td {
+  background: var(--surface) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+
+[data-testid="stDataFrame"] tbody tr:hover {
+  background: #f0f3fa !important;
+}

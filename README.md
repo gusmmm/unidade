@@ -48,6 +48,9 @@ uv run uvicorn backend.main:app --reload --port 8000
 
 # 6. Correr frontend (outro terminal)
 uv run streamlit run frontend/main.py
+
+# 6b. Correr frontend escolhendo a porta
+uv run python main.py --port 8502
 ```
 
 ## Autenticação
